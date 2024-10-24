@@ -38,6 +38,9 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 
+(use-package magit
+  :ensure t)
+
 (use-package which-key
   :ensure t
   :init
@@ -54,12 +57,8 @@
   :init
   (projectile-mode 1))
 
-(use-package corfu
-  :ensure t
-  :custom
-  (corfu-auto t)
-  :init
-  (global-corfu-mode))
+(use-package company
+  :ensure t)
 
 (use-package multiple-cursors
   :ensure t
@@ -74,16 +73,54 @@
   (setq catppuccin-flavor 'mocha)
   (load-theme 'catppuccin :no-confirm))
 
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+  (add-hook 'LaTeX-mode-hook #'yas-minor-mode))
+
+(use-package clang-format
+  :ensure t
+  :bind (("C-S-i" . clang-format-buffer))
+  :config
+  (setq clang-format-fallback-style "llvm"))
+
+;; (use-package company
+;;   :ensure t)
+
+(use-package flycheck
+  :ensure t)
+
+(use-package lsp-mode
+  :ensure t)
+
+(use-package pdf-tools
+  :ensure t)
+
+(use-package org-noter
+  :ensure t)
+
+(defun my-turn-off-line-numbers ()
+  "Disable line numbering in the current buffer."
+  (display-line-numbers-mode -1))
+
+(add-hook 'pdf-view-mode-hook #'my-turn-off-line-numbers)
+
+(setq read-process-output-max (* 4 1024 1024))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(gc-cons-threshold 100000000)
  '(package-selected-packages
-   '(catppuccin-theme catppuccin multiple-cursors corfu which-key projectile smex)))
+   '(flycheck company company-mode org-noter pdf-tools clang-format magit yasnippet catppuccin-theme catppuccin multiple-cursors which-key projectile smex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'scroll-left 'disabled nil)

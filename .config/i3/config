@@ -1,6 +1,6 @@
 set $mod Mod4
 
-font pango:monospace 8
+font pango:Iosevka Nerd Font 8.5
 
 default_border none
 
@@ -20,7 +20,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 floating_modifier $mod
 tiling_drag modifier titlebar
 
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec lxterminal 
 
 bindsym $mod+Shift+q kill
 
@@ -171,3 +171,4 @@ for_window [title="Figure*" instance="matplotlib"] floating enable
 for_window [title="Figure*" instance="octave-gui"] floating enable
 
 bindsym $mod+m exec emacsclient -c
+
